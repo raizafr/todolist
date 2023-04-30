@@ -1,7 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { userState } from "../store";
+import { Link } from "react-router-dom";
 
 const Home = () => {
+  // const [globalUsers, setGlobalUsers] = useRecoilState(userState);
   const [users, setUsers] = useState([]);
   async function getUser() {
     try {
@@ -9,15 +13,16 @@ const Home = () => {
         "https://6431cb05d4518cfb0e6939e5.mockapi.io/api/v1/userinfo"
       );
       setUsers(response.data);
+      // setGlobalUsers(response.data);
     } catch (error) {
       console.error(error);
     }
   }
+  // console.log(globalUsers);
 
   useEffect(() => {
     getUser();
   }, []);
-  // console.log(user);
 
   return (
     <>
@@ -40,15 +45,18 @@ const Home = () => {
                     <td className="border border-gray-700">{user.phone}</td>
                     <td className="border border-gray-700">{user.address}</td>
                     <td className="space-x-2 text-center border border-gray-700">
-                      <a href="" className="bg-teal-400 px-1 py-0.5 rounded-sm">
-                        view
-                      </a>
-                      <a
-                        href=""
+                      <Link
+                        to={"/detail/" + user.id}
+                        className="bg-teal-400 px-1 py-0.5 rounded-sm"
+                      >
+                        detail
+                      </Link>
+                      <Link
+                        // to={"/edit/" + user.id}
                         className="bg-amber-400 px-1 py-0.5 rounded-sm"
                       >
                         edit
-                      </a>
+                      </Link>
                       <a href="" className="bg-red-600 px-1 py-0.5 rounded-sm">
                         delete
                       </a>

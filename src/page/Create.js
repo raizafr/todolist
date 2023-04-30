@@ -1,8 +1,35 @@
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const Create = () => {
+  const navigate = useNavigate();
+  const [submit, setSubmit] = useState({
+    name: "",
+    phone: "",
+    address: "",
+  });
+  const handSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post(
+        "https://6431cb05d4518cfb0e6939e5.mockapi.io/api/v1/userinfo",
+        submit
+      )
+      .then(function (response) {
+        navigate("/");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   return (
     <>
       <section className="mx-auto px-7 mt-9 md:mt-20 md:w-3/5 lg:w-2/6">
-        <form className="bg-gradient-to-b  from-green-500 to-primary-1 py-5 space-y-3 rounded">
+        <form
+          onSubmit={handSubmit}
+          className="bg-gradient-to-b  from-green-500 to-primary-1 py-5 space-y-3 rounded"
+        >
           <div className="text-lg text-white text-center font-semibold">
             Create User Data
           </div>
@@ -12,6 +39,10 @@ const Create = () => {
                 Name
               </label>
               <input
+                onChange={(e) => setSubmit({ ...submit, name: e.target.value })}
+                required
+                minLength={5}
+                maxLength={25}
                 type="text"
                 name="name"
                 id="name"
@@ -26,6 +57,12 @@ const Create = () => {
                 Phone Number
               </label>
               <input
+                onChange={(e) =>
+                  setSubmit({ ...submit, phone: e.target.value })
+                }
+                minLength={11}
+                maxLength={13}
+                required
                 type="tel"
                 name="contact"
                 id="contact"
@@ -40,6 +77,12 @@ const Create = () => {
                 Address
               </label>
               <input
+                onChange={(e) =>
+                  setSubmit({ ...submit, address: e.target.value })
+                }
+                minLength={3}
+                maxLength={25}
+                required
                 type="text"
                 name="address"
                 id="address"
