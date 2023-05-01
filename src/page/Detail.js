@@ -20,17 +20,32 @@ const Detail = () => {
   useEffect(() => {
     getUser();
   }, []);
-  console.log(user);
 
   return (
-    <section>
-      <div>
-        <ul>
-          <li>{user.id}</li>
-          <li>{user.name}</li>
-          <li>{user.phone}</li>
-          <li>{user.address}</li>
-        </ul>
+    <section className="flex justify-center mt-6">
+      <div className="bg-green-500 w-11/12 md:w-1/4 px-6 py-4 text-white">
+        <table>
+          <tr>
+            <td>user id</td>
+            <td>: </td>
+            <td>{user.id}</td>
+          </tr>
+          <tr>
+            <td>name</td>
+            <td>: </td>
+            <td>{user.name}</td>
+          </tr>
+          <tr>
+            <td>contact</td>
+            <td>: </td>
+            <td>{user.phone}</td>
+          </tr>
+          <tr>
+            <td>address</td>
+            <td>: </td>
+            <td>{user.address}</td>
+          </tr>
+        </table>
       </div>
     </section>
   );

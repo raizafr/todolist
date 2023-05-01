@@ -18,11 +18,25 @@ const Home = () => {
       console.error(error);
     }
   }
-  // console.log(globalUsers);
 
   useEffect(() => {
     getUser();
   }, []);
+
+  const destroy = (e, id) => {
+    axios
+      .delete(
+        "https://6431cb05d4518cfb0e6939e5.mockapi.io/api/v1/userinfo/" + id,
+        {}
+      )
+      .then((response) => {
+        alert("user deleted");
+        getUser();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -52,14 +66,17 @@ const Home = () => {
                         detail
                       </Link>
                       <Link
-                        // to={"/edit/" + user.id}
+                        to={"/edit/" + user.id}
                         className="bg-amber-400 px-1 py-0.5 rounded-sm"
                       >
                         edit
                       </Link>
-                      <a href="" className="bg-red-600 px-1 py-0.5 rounded-sm">
+                      <Link
+                        onClick={(e) => destroy(e, user.id)}
+                        className="bg-red-600 px-1 py-0.5 rounded-sm"
+                      >
                         delete
-                      </a>
+                      </Link>
                     </td>
                   </>
                 </tr>
