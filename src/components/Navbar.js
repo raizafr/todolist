@@ -13,7 +13,10 @@ const Navbar = () => {
             <Link to={"/"}>TODOLIST</Link>
           </div>
           <div>
-            <Link to={"/create"} className="hidden md:inline">
+            <Link
+              to={"/create"}
+              className="hidden md:inline bg-gradient-to-b from-green-500 to-primary-1 px-3 py-1 rounded-lg hover:text-black"
+            >
               Tambah Data
             </Link>
           </div>
@@ -48,25 +51,6 @@ const Navbar = () => {
         </div>
         {/* /mobile */}
       </nav>
-      {/* <svg
-        className="-m-1"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ WebkitTransition: "0.3s", transition: "0.3s" }}
-        transform="rotate(180)"
-        version="1.1"
-        viewBox="0 0 1440 230"
-      >
-        <defs>
-          <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
-            <stop offset="0%" stopColor="rgba(34, 197, 94, 1)"></stop>
-            <stop offset="100%" stopColor="rgba(11, 255, 221.939, 1)"></stop>
-          </linearGradient>
-        </defs>
-        <path
-          fill="url(#sw-gradient-0)"
-          d="M0 138l40 7.7c40 7.3 120 23.3 200 30.6 80 7.7 160 7.7 240-19.1C560 130 640 77 720 72.8 800 69 880 115 960 115s160-46 240-72.8C1280 15 1360 8 1440 26.8c80 19.2 160 65.2 240 69 80 4.2 160-34.8 240-46 80-11.8 160 4.2 240 23 80 19.2 160 42.2 240 46 80 4.2 160-11.8 240-26.8s160-31 240-15.3c80 15.3 160 61.3 240 57.5 80-4.2 160-57.2 240-65.2s160 31 240 26.8c80-3.8 160-49.8 240-42.1 80 7.3 160 69.3 240 99.6 80 30.7 160 30.7 240 3.9C4400 130 4480 77 4560 46s160-38 240-15.3c80 23.3 160 76.3 240 84.3s160-31 240-38.3c80-7.7 160 15.3 240 26.8s160 11.5 200 11.5h40v115H0z"
-        ></path>
-      </svg> */}
     </>
   );
 };
