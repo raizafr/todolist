@@ -15,6 +15,7 @@ const Home = () => {
   const records = users.slice(firstIndex, lastIndex);
   const npage = Math.ceil(users.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
+  const [search, setSearch] = useState("");
 
   async function getUser() {
     try {
@@ -63,55 +64,71 @@ const Home = () => {
 
   return (
     <>
-      <section className="mt-10 flex justify-center">
-        <table className=" border border-gray-700 border-separate border-spacing-1">
-          <thead>
-            <tr className="">
-              <th className="border border-gray-700 py-3 px-4">name</th>
-              <th className="border border-gray-700  px-5">contact</th>
-              <th className="border border-gray-700  px-5">address</th>
-              <th className="border border-gray-700  px-16">action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {records.map((user) => {
-              return (
-                <tr className="py-9" key={user.id}>
-                  <>
-                    <td className="border border-gray-700 px-1">{user.name}</td>
-                    <td className="border border-gray-700 px-1">
-                      {user.phone}
-                    </td>
-                    <td className="border border-gray-700 px-1">
-                      {user.address}
-                    </td>
-                    <td className="space-x-2 text-center border border-gray-700 py-2">
-                      <Link
-                        to={"/detail/" + user.id}
-                        className="bg-teal-400 px-1 py-0.5 rounded text-white"
-                      >
-                        detail
-                      </Link>
-                      <Link
-                        to={"/edit/" + user.id}
-                        className="bg-amber-400 px-1 py-0.5 rounded text-white"
-                      >
-                        edit
-                      </Link>
-                      <Link
-                        onClick={(e) => destroy(e, user.id)}
-                        className="bg-red-600 px-1 py-0.5 rounded text-white"
-                      >
-                        delete
-                      </Link>
-                    </td>
-                  </>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </section>
+      <div className="mt-10 flex justify-center">
+        <section>
+          <input
+            onChange={(e) => setSearch(e.target.value)}
+            type="text"
+            placeholder="Search..."
+            className="focus:outline-none border-2 border-green-800 rounded-lg px-3 py-1 my-3"
+          />
+          <table className=" border border-gray-700 border-separate border-spacing-1">
+            <thead>
+              <tr className="">
+                <th className="border border-gray-700 py-3 px-4">Name</th>
+                <th className="border border-gray-700  px-5">Contact</th>
+                <th className="border border-gray-700  px-5">Address</th>
+                <th className="border border-gray-700  px-16">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {records
+                .filter((users) => {
+                  return search.toLowerCase() === ""
+                    ? users
+                    : users.name.toLowerCase().includes(search);
+                })
+                .map((user) => {
+                  return (
+                    <tr className="py-9" key={user.id}>
+                      <>
+                        <td className="border border-gray-700 px-1">
+                          {user.name}
+                        </td>
+                        <td className="border border-gray-700 px-1">
+                          {user.phone}
+                        </td>
+                        <td className="border border-gray-700 px-1">
+                          {user.address}
+                        </td>
+                        <td className="space-x-2 text-center border border-gray-700 py-2">
+                          <Link
+                            to={"/detail/" + user.id}
+                            className="bg-teal-400 px-1 py-0.5 rounded text-white"
+                          >
+                            detail
+                          </Link>
+                          <Link
+                            to={"/edit/" + user.id}
+                            className="bg-amber-400 px-1 py-0.5 rounded text-white"
+                          >
+                            edit
+                          </Link>
+                          <Link
+                            onClick={(e) => destroy(e, user.id)}
+                            className="bg-red-600 px-1 py-0.5 rounded text-white"
+                          >
+                            delete
+                          </Link>
+                        </td>
+                      </>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </section>
+      </div>
       {/* paginate */}
       <nav className="flex justify-center mt-3">
         <ul className="flex space-x-1">
